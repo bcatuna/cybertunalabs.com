@@ -12,6 +12,8 @@ The site is static HTML and CSS. GitHub Pages can serve it from the root of the 
 
 The policy pages keep the legal text and draft notices from the source documents. A studio bar above each document links back to this site.
 
+Swarm Genesis logo, key art, nebula, and screenshots in `assets/` are the studio’s published game art, optimized for the web.
+
 ## Local preview
 
 From the repository root:
