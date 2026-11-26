@@ -15,17 +15,18 @@
   <meta property="og:description" content="We build crisp, replayable sci-fi arcade and puzzle games for desktop and mobile.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cybertunalabs.com/">
-  <meta property="og:image" content="https://cybertunalabs.com/assets/swarm-genesis/key-art.jpg">
+  <meta property="og:image" content="https://cybertunalabs.com/assets/brand/emblem.png">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Cyber Tuna Labs">
   <meta name="twitter:description" content="We build crisp, replayable sci-fi arcade and puzzle games for desktop and mobile.">
-  <meta name="twitter:image" content="https://cybertunalabs.com/assets/swarm-genesis/key-art.jpg">
+  <meta name="twitter:image" content="https://cybertunalabs.com/assets/brand/emblem.png">
   <link rel="icon" href="/assets/brand/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/assets/brand/favicon-192.png" sizes="192x192" type="image/png">
   <link rel="icon" href="/assets/brand/favicon-512.png" sizes="512x512" type="image/png">
-  <link rel="apple-touch-icon" href="/assets/brand/apple-touch.png">
+  <link rel="apple-touch-icon" href="/assets/brand/favicon-192.png">
   <link rel="preload" as="image" href="/assets/hero/nebula.webp" type="image/webp">
+  <link rel="preload" as="image" href="/assets/brand/logo-stacked.webp" type="image/webp">
   <link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">
   {
@@ -37,7 +38,7 @@
         "name": "Cyber Tuna Labs LLC",
         "legalName": "Cyber Tuna Labs LLC",
         "url": "https://cybertunalabs.com/",
-        "logo": "https://cybertunalabs.com/assets/press/swarm-genesis-logo.png",
+        "logo": "https://cybertunalabs.com/assets/press/ctl-emblem.png",
         "email": "support@cybertunalabs.com",
         "sameAs": ["https://www.tiktok.com/@swarm.genesis"],
         "address": {
@@ -58,7 +59,7 @@
         "@type": "VideoGame",
         "name": "Swarm Genesis",
         "url": "https://cybertunalabs.itch.io/swarm-genesis",
-        "image": "https://cybertunalabs.com/assets/swarm-genesis/key-art.jpg",
+        "image": "https://cybertunalabs.com/assets/swarm-genesis/gameplay-1.jpg",
         "genre": "Sci-fi arcade roguelite",
         "gamePlatform": ["Web browser", "iOS", "Android"],
         "creativeWorkStatus": "Free playable web preview",
@@ -69,6 +70,7 @@
         "@type": "VideoGame",
         "name": "Cosmic Weave",
         "url": "https://cybertunalabs.itch.io/cosmic-weave",
+        "image": "https://cybertunalabs.com/assets/cosmic-weave/home.jpg",
         "genre": "Puzzle",
         "gamePlatform": ["iOS", "Android"],
         "creativeWorkStatus": "In development",
@@ -83,7 +85,12 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="logo" href="#top">Cyber Tuna <span>Labs</span></a>
+      <a class="logo" href="#top">
+        <picture>
+          <source type="image/webp" srcset="/assets/brand/logo-horizontal.webp">
+          <img src="/assets/brand/logo-horizontal.png" width="418" height="114" alt="Cyber Tuna Labs">
+        </picture>
+      </a>
       <nav class="primary-nav" aria-label="Primary">
         <a href="#games">Games</a>
         <a href="#studio">Studio</a>
@@ -107,10 +114,10 @@
             <a class="button button-ghost" href="https://cybertunalabs.itch.io/swarm-genesis">Play Swarm Genesis Preview</a>
           </div>
         </div>
-        <figure class="key-art">
+        <figure class="studio-mark">
           <picture>
-            <source type="image/webp" srcset="/assets/swarm-genesis/key-art.webp">
-            <img src="/assets/swarm-genesis/key-art.jpg" width="630" height="500" alt="Swarm Genesis key art: a starship faces a neon swarm beneath the game logo" fetchpriority="high">
+            <source type="image/webp" srcset="/assets/brand/logo-stacked.webp">
+            <img src="/assets/brand/logo-stacked.png" width="1000" height="1019" alt="Cyber Tuna Labs" fetchpriority="high">
           </picture>
         </figure>
       </div>
@@ -123,7 +130,7 @@
         <p class="lede">Two projects from the studio. Swarm Genesis is free in the browser. Cosmic Weave is the puzzle we’re building for mobile.</p>
 
         <article class="feature" id="swarm-genesis">
-          <div class="showcase-media">
+          <div class="showcase-media" data-gallery>
             <figure class="device">
               <button type="button" class="device-hit" id="swarm-stage" aria-label="Enlarge Swarm Genesis screenshot">
                 <picture>
@@ -157,10 +164,16 @@
             </div>
           </div>
           <div class="feature-copy">
-            <picture>
-              <source type="image/webp" srcset="/assets/swarm-genesis/logo.webp">
-              <img class="game-logo" src="/assets/press/swarm-genesis-logo.png" width="1000" height="244" alt="Swarm Genesis" loading="lazy">
-            </picture>
+            <div class="game-title">
+              <picture>
+                <source type="image/webp" srcset="/assets/swarm-genesis/app-icon.webp">
+                <img class="app-badge" src="/assets/swarm-genesis/app-icon.png" width="192" height="192" alt="">
+              </picture>
+              <picture>
+                <source type="image/webp" srcset="/assets/swarm-genesis/logo.webp">
+                <img class="game-logo" src="/assets/swarm-genesis/logo.png" width="629" height="217" alt="Swarm Genesis" loading="lazy">
+              </picture>
+            </div>
             <div class="pills">
               <span class="pill">Free Playable Web Preview</span>
               <span class="pill">Coming to iOS &amp; Android</span>
@@ -174,17 +187,41 @@
           </div>
         </article>
 
-        <article class="weave" id="cosmic-weave">
-          <div>
+        <article class="feature weave" id="cosmic-weave">
+          <div class="showcase-media" data-gallery>
+            <figure class="device">
+              <button type="button" class="device-hit" aria-label="Enlarge Cosmic Weave screenshot">
+                <picture>
+                  <source type="image/webp" srcset="/assets/cosmic-weave/gameplay-720.webp 720w, /assets/cosmic-weave/gameplay.webp 1080w" sizes="280px">
+                  <img src="/assets/cosmic-weave/gameplay.jpg" width="1080" height="1920" alt="Cosmic Weave gameplay: level 18 with neon threads joining matching crystal nodes">
+                </picture>
+              </button>
+            </figure>
+            <div class="thumbs" role="group" aria-label="Cosmic Weave screenshots">
+              <button type="button" class="thumb is-active" aria-pressed="true" aria-label="Gameplay screenshot"
+                data-webp="/assets/cosmic-weave/gameplay.webp"
+                data-jpg="/assets/cosmic-weave/gameplay.jpg"
+                data-full="/assets/cosmic-weave/gameplay.webp"
+                data-alt="Cosmic Weave gameplay: level 18 with neon threads joining matching crystal nodes">
+                <img src="/assets/cosmic-weave/gameplay-720.webp" width="72" height="128" alt="">
+              </button>
+              <button type="button" class="thumb" aria-pressed="false" aria-label="Home screen screenshot"
+                data-webp="/assets/cosmic-weave/home.webp"
+                data-jpg="/assets/cosmic-weave/home.jpg"
+                data-full="/assets/cosmic-weave/home.webp"
+                data-alt="Cosmic Weave home screen: level 1 with a play button and the crystal garden">
+                <img src="/assets/cosmic-weave/home-720.webp" width="72" height="128" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="feature-copy">
             <p class="kicker">Next from the studio</p>
             <h3>Cosmic Weave</h3>
-            <p class="pitch">A spectral path-weaving puzzle. Draw orthogonal threads between matching crystal nodes without sharing a cell.</p>
-          </div>
-          <div>
             <div class="pills">
               <span class="pill">In Development</span>
               <span class="pill">Mobile (iOS &amp; Android)</span>
             </div>
+            <p class="pitch">A spectral path-weaving puzzle. Draw orthogonal threads between matching crystal nodes without sharing a cell.</p>
             <div class="actions">
               <a class="button button-ghost" href="https://cybertunalabs.itch.io/cosmic-weave">Cosmic Weave project page</a>
             </div>
@@ -231,9 +268,11 @@
           </article>
           <article class="card">
             <h3>Press &amp; media</h3>
+            <p><a href="/assets/press/ctl-logo-horizontal.png" download>Cyber Tuna Labs logo</a></p>
+            <p><a href="/assets/press/ctl-logo-stacked.png" download>Stacked logo</a></p>
+            <p><a href="/assets/press/ctl-emblem.png" download>Emblem</a></p>
             <p><a href="/assets/press/swarm-genesis-logo.png" download>Swarm Genesis logo</a></p>
-            <p><a href="/assets/press/swarm-genesis-key-art.jpg" download>Key art</a></p>
-            <p>Official game logo and key art, ready to download.</p>
+            <p>Official studio logo, emblem, and the Swarm Genesis title logo, ready to download.</p>
           </article>
           <article class="card">
             <h3>Privacy</h3>

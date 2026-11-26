@@ -79,19 +79,15 @@ img { max-width: 100%; height: auto; }
   flex-wrap: wrap;
 }
 .logo {
-  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
   text-decoration: none;
-  font-weight: 750;
-  letter-spacing: -0.04em;
-  font-size: 1.15rem;
 }
-.logo span {
-  font-weight: 560;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  margin-left: 0.35rem;
-  color: var(--muted);
+.logo img {
+  height: 38px;
+  width: auto;
+  display: block;
 }
 .primary-nav,
 .footer-links {
@@ -200,15 +196,44 @@ h1 {
   border-color: rgba(246, 243, 236, 0.35);
 }
 .button-ghost:hover { background: rgba(255, 255, 255, 0.06); }
-.key-art {
+.studio-mark {
+  position: relative;
   margin: 0;
-  border-radius: 22px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
-  background: #090b12;
+  display: grid;
+  place-items: center;
+  min-height: 320px;
 }
-.key-art img { display: block; width: 100%; height: auto; }
+.studio-mark::before,
+.studio-mark::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.studio-mark::before {
+  width: 86%;
+  height: 78%;
+  background: radial-gradient(circle, rgba(142, 246, 255, 0.34), rgba(142, 246, 255, 0) 68%);
+  filter: blur(10px);
+}
+.studio-mark::after {
+  width: 58%;
+  height: 52%;
+  transform: translate(16%, 14%);
+  background: radial-gradient(circle, rgba(255, 90, 212, 0.28), rgba(255, 90, 212, 0) 70%);
+  filter: blur(16px);
+}
+.studio-mark img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(440px, 100%);
+  height: auto;
+  filter:
+    drop-shadow(0 0 18px rgba(142, 246, 255, 0.38))
+    drop-shadow(0 22px 42px rgba(0, 0, 0, 0.5));
+}
 
 .section { padding: 5.25rem 0; }
 .section h2 {
@@ -235,7 +260,22 @@ h1 {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
 }
 .feature-copy { padding: 0.6rem 0.8rem 0.8rem; }
-.game-logo { width: min(100%, 420px); height: auto; display: block; }
+.game-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+.game-title picture:last-child { min-width: 0; flex: 1 1 180px; }
+.app-badge {
+  width: 68px;
+  height: 68px;
+  flex: none;
+  border-radius: 16px;
+  display: block;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+.game-logo { width: min(100%, 340px); height: auto; display: block; }
 .pills { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1rem 0 0.9rem; }
 .pill {
   display: inline-flex;
@@ -295,24 +335,17 @@ h1 {
 
 .weave {
   margin-top: 1.2rem;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 2rem;
-  align-items: end;
-  padding: 2rem 2rem 1.8rem;
-  border-radius: 28px;
-  border: 1px solid var(--line);
   background:
-    radial-gradient(600px 240px at 0% 100%, rgba(142, 246, 255, 0.16), transparent 70%),
-    radial-gradient(500px 220px at 100% 0%, rgba(255, 90, 212, 0.14), transparent 65%),
-    #0b0d14;
+    radial-gradient(640px 280px at 0% 100%, rgba(142, 246, 255, 0.16), transparent 70%),
+    radial-gradient(520px 240px at 100% 0%, rgba(255, 90, 212, 0.16), transparent 68%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
 }
 .weave h3 {
   margin: 0;
-  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
   font-weight: 760;
 }
-.weave .pitch { margin-top: 0.8rem; font-size: 1.15rem; }
+.weave .pitch { margin-top: 0.2rem; font-size: 1.12rem; }
 
 .pillars {
   display: grid;
@@ -451,6 +484,8 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
     white-space: nowrap;
   }
   .hero { min-height: auto; padding-top: 1.5rem; }
+  .studio-mark { min-height: 0; }
+  .studio-mark img { width: min(250px, 72%); }
   .actions .button { width: 100%; }
   .cards { grid-template-columns: 1fr; }
   .section { padding: 3.6rem 0; }
