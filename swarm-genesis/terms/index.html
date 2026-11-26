@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/brand/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="/assets/brand/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/assets/brand/favicon-192.png">
+<title>Swarm Genesis Terms of Service and EULA — Cyber Tuna Labs LLC (Draft)</title>
+<meta name="description" content="Draft Terms of Service and End User License Agreement for Swarm Genesis, operated by Cyber Tuna Labs LLC. For licensed counsel review before commercial launch.">
+<style>
+
+:root{
+  --bg:#f6f3ec;
+  --fg:#1b1d21;
+  --muted:#4d5560;
+  --accent:#0b4f6c;
+  --accent-2:#8a3b12;
+  --card:#fffdf8;
+  --border:#d8d0c2;
+  --banner-bg:#3c2a0a;
+  --banner-fg:#ffe8b5;
+  --note-bg:#f3ead6;
+  --note-fg:#3c2a0a;
+  --activate-bg:#f8ece4;
+  --activate-fg:#7a2e0d;
+  --link:#0b4f6c;
+  --link-hover:#092f42;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0c1016;
+    --fg:#e8eef6;
+    --muted:#a8b3c1;
+    --accent:#7ec8e3;
+    --accent-2:#ffb089;
+    --card:#141b24;
+    --border:#2a3442;
+    --banner-bg:#3d2c0c;
+    --banner-fg:#ffe7b3;
+    --note-bg:#241c10;
+    --note-fg:#ffe7b3;
+    --activate-bg:#2a1810;
+    --activate-fg:#ffb089;
+    --link:#8bd3ee;
+    --link-hover:#c7efff;
+  }
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+.skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;}
+.skip:focus{position:static;width:auto;height:auto;padding:8px 16px;display:inline-block;}
+.banner{
+  background:var(--banner-bg);
+  color:var(--banner-fg);
+  padding:12px 22px;
+  text-align:center;
+  font-size:14px;
+  font-weight:650;
+  letter-spacing:.02em;
+}
+header,main,footer{max-width:760px;margin:0 auto;padding:0 22px;}
+header{padding-top:36px;padding-bottom:8px;}
+h1{font-size:2rem;line-height:1.2;margin:0 0 10px;color:var(--accent);}
+h2{font-size:1.28rem;margin:2.1em 0 .5em;color:var(--accent);}
+h3{font-size:1.05rem;margin:1.4em 0 .4em;}
+p,li{color:var(--fg);}
+.muted,.meta{color:var(--muted);}
+.meta{margin:.15em 0;font-size:15.5px;}
+a{color:var(--link);}
+a:hover{color:var(--link-hover);}
+.note, .activate, .toc, .decisions{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 18px;
+  margin:18px 0;
+}
+.note{background:var(--note-bg);color:var(--note-fg);border-color:transparent;}
+.activate{
+  background:var(--activate-bg);
+  color:var(--activate-fg);
+  border-color:transparent;
+  font-weight:650;
+  font-size:15px;
+}
+.decisions ul{margin:8px 0 0;padding-left:1.2em;}
+.toc{font-size:15.5px;}
+.toc h2{margin-top:0;font-size:1.05rem;}
+.toc ol{margin:0;padding-left:1.25em;}
+.toc li{margin:.25em 0;}
+ul,ol{padding-left:1.25em;}
+li{margin:.35em 0;}
+.contact{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px 18px;
+}
+footer{
+  padding:28px 22px 56px;
+  color:var(--muted);
+  font-size:14px;
+}
+footer p{color:var(--muted);}
+@media print{
+  .banner{background:#000;color:#000;border:2px solid #000;}
+  body{background:#fff;color:#000;}
+  a{color:#000;text-decoration:underline;}
+  .note,.activate,.toc,.decisions,.contact{break-inside:avoid;}
+}
+
+
+.studio-bar{
+  background:#07080d;
+  color:#f6f3ec;
+  border-bottom:1px solid rgba(246,243,236,.12);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:15px;
+}
+.studio-bar-inner{
+  width:min(1160px,calc(100% - 2.5rem));
+  margin:0 auto;
+  min-height:64px;
+  padding:10px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  align-items:center;
+  justify-content:space-between;
+}
+.studio-bar a{color:#f6f3ec;font-weight:650;text-decoration:none;}
+.studio-bar a:hover,.studio-bar a:focus-visible{color:#8ef6ff;}
+.studio-brand{display:inline-flex;align-items:center;line-height:0;}
+.studio-brand img{height:36px;width:auto;display:block;}
+.studio-bar-links{display:flex;flex-wrap:wrap;gap:4px 14px;}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="studio-bar" aria-label="Cyber Tuna Labs">
+  <div class="studio-bar-inner">
+    <a class="studio-brand" href="/"><picture><source type="image/webp" srcset="/assets/brand/logo-horizontal.webp"><img src="/assets/brand/logo-horizontal.png" width="418" height="114" alt="Cyber Tuna Labs"></picture></a>
+    <span class="studio-bar-links">
+      <a href="/#games">Games</a>
+      <a href="/#studio">Studio</a>
+      <a href="/#press">Press &amp; Support</a>
+      <a href="/swarm-genesis/privacy/">Privacy</a>
+    </span>
+  </div>
+</nav>
+<div class="banner" role="note">DRAFT — FOR LICENSED COUNSEL REVIEW BEFORE COMMERCIAL LAUNCH — Not legal advice and not a final, in-force Terms of Service or EULA.</div>
+<header>
+  <h1>Swarm Genesis — Terms of Service and End User License Agreement</h1>
+  <p class="meta"><strong>Proposed effective date:</strong> November 25, 2026</p>
+  <p class="meta"><strong>Last updated:</strong> November 25, 2026</p>
+  <p class="meta"><strong>Operator:</strong> Cyber Tuna Labs LLC, a Nevada limited liability company, Las Vegas, Nevada, United States</p>
+  <p class="meta"><strong>Product:</strong> Swarm Genesis</p>
+  <p class="meta"><strong>Current public web preview:</strong> <a href="https://bcatuna.itch.io/swarm-genesis">https://bcatuna.itch.io/swarm-genesis</a></p>
+</header>
+<main id="main">
+  <div class="note">
+    <p>This document is an internal draft prepared for Cyber Tuna Labs LLC. It is <strong>not legal advice</strong>, has <strong>not</strong> been approved by a licensed attorney, and is <strong>not</strong> a final, in-force Terms of Service or End User License Agreement (EULA). Do not publish, bundle as final, or rely on this draft for a paid or mobile-store launch until licensed Nevada counsel has reviewed it and the operator has posted the approved version at a public URL.</p>
+  </div>
+
+  <div class="decisions">
+    <h2>Decisions required before public hosting</h2>
+    <ul>
+      <li>Public contact email locked: <strong>legal@cybertunalabs.com</strong>.</li>
+      <li>Confirm the public <code>https</code> URL / domain that will host these Terms and the Privacy Policy (none is verified yet).</li>
+      <li>Add a mailing address if counsel recommends one and the address is confirmed.</li>
+      <li><strong>Arbitration / class-action waiver:</strong> This draft does <strong>not</strong> include a binding arbitration agreement or a class-action waiver. Whether to add one, how it would interact with Nevada law and the Federal Arbitration Act, how it must be presented for informed assent, and how it interacts with Apple or Google platform rules, is a decision for <strong>licensed Nevada counsel</strong> before commercial launch. See <a href="#governing-law">Section 12</a>.</li>
+      <li>Confirm that a written Founder IP Assignment (Brandon Catuna → Cyber Tuna Labs LLC) is signed before representing, in a final public EULA, that the LLC owns all Swarm Genesis intellectual property.</li>
+      <li>Licensed counsel review of the warranty disclaimer, limitation of liability, Apple-required EULA terms, virtual-currency language, and any mandatory consumer-protection carve-outs.</li>
+    </ul>
+  </div>
+
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#agreement">Agreement and operator</a></li>
+      <li><a href="#scope">Scope</a></li>
+      <li><a href="#license">License grant</a></li>
+      <li><a href="#ip">Intellectual property</a></li>
+      <li><a href="#preview">Web preview and test-store disclaimer</a></li>
+      <li><a href="#virtual-items">Virtual currency and in-app purchases</a></li>
+      <li><a href="#acceptable-use">Acceptable use</a></li>
+      <li><a href="#saves">User-exported save files</a></li>
+      <li><a href="#apple">Apple App Store required terms</a></li>
+      <li><a href="#warranty">Disclaimer of warranties</a></li>
+      <li><a href="#liability">Limitation of liability</a></li>
+      <li><a href="#governing-law">Governing law and venue</a></li>
+      <li><a href="#termination">Termination</a></li>
+      <li><a href="#changes">Changes to these Terms</a></li>
+      <li><a href="#misc">Miscellaneous</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="agreement">1. Agreement and operator</h2>
+  <p>These Terms of Service and this End User License Agreement (together, the “Terms”) are a legally binding agreement between you and <strong>Cyber Tuna Labs LLC</strong>, a Nevada limited liability company located in Las Vegas, Nevada, United States (“Cyber Tuna Labs,” “we,” “us,” or “our”), concerning your access to and use of the game <strong>Swarm Genesis</strong> (the “Game”), including related software, audiovisual content, virtual items, and documentation we make available.</p>
+  <p>By downloading, accessing, or playing the Game, or by clicking or tapping to accept these Terms if that control is presented, you agree to these Terms. If you do not agree, do not download, access, or play the Game.</p>
+  <p>If you are using the Game on behalf of an organization, you represent that you have authority to bind that organization, and “you” includes that organization.</p>
+  <p>You must be old enough to form a binding contract in your jurisdiction, or you must use the Game only with the consent of a parent or legal guardian who agrees to these Terms. The Game is a general-audience title and is not directed to children under 13. Our collection and use of information is described in the Privacy Policy.</p>
+
+  <h2 id="scope">2. Scope</h2>
+  <p>These Terms apply to:</p>
+  <ul>
+    <li>The <strong>Web / itch.io Preview Build</strong>, a free, in-development HTML5 preview currently published at <a href="https://bcatuna.itch.io/swarm-genesis">https://bcatuna.itch.io/swarm-genesis</a>, including play in a web browser on itch.io; and</li>
+    <li><strong>Future Apple App Store and Google Play builds</strong> of Swarm Genesis, if and when they are released.</li>
+  </ul>
+  <p>The web preview is also subject to <a href="https://itch.io/docs/legal/terms">itch.io’s Terms of Service</a>. Apple App Store or Google Play builds, if released, are also subject to Apple’s or Google’s applicable terms, including their billing and refund rules. If those platform terms conflict with these Terms on a subject the platform exclusively controls (for example, how a store refund is processed), the platform terms control that subject.</p>
+  <p>These Terms do not make itch.io, Apple, or Google a party to the license we grant you in the Game, except for Apple’s third-party-beneficiary rights described in <a href="#apple">Section 9</a> when you obtain the Game from the Apple App Store.</p>
+
+  <h2 id="license">3. License grant</h2>
+  <p>Subject to your compliance with these Terms, Cyber Tuna Labs grants you a limited, personal, non-exclusive, non-transferable, non-sublicensable, revocable license to download, install (where applicable), and play the Game for your own lawful, non-commercial entertainment on devices or browsers you own or control, and in accordance with any applicable platform rules (itch.io, Apple, or Google).</p>
+  <p>This is a license, not a sale. You do not acquire any ownership interest in the Game, in any virtual currency or virtual items, or in any of our intellectual property. We may update, patch, suspend, or discontinue all or part of the Game, including the preview build, at any time.</p>
+  <p>Except for the limited license above, we and our licensors reserve all rights.</p>
+
+  <h2 id="ip">4. Intellectual property</h2>
+  <p>The Game, including its software, audiovisual elements, characters, names, stories, music, sound, user interface, logos, and the <strong>SWARM GENESIS</strong> and <strong>CYBER TUNA LABS</strong> names and marks, is owned by Cyber Tuna Labs LLC or its licensors and is protected by copyright, trademark, and other laws. “Swarm Genesis” and “Cyber Tuna Labs” are currently used as unregistered marks; use in these Terms is not a representation that a federal registration has issued.</p>
+  <p>You may not copy, distribute, modify, publicly display, or create derivative works of the Game, or use our names or marks, except as these Terms expressly allow or as mandatory law requires.</p>
+  <p><strong>Third-party and open-source components.</strong> The Game is built with the Godot engine (MIT License) and ships certain fonts and other third-party or open-source components under their own licenses (including SIL Open Font License 1.1 texts for shipped fonts, and other notices shown in the in-game Credits &amp; Licenses screen). Those components remain subject to their own license terms, which we honor and which are provided in-game. Nothing in these Terms limits your rights under those third-party licenses, and nothing in those licenses grants you rights in the rest of the Game beyond the license in <a href="#license">Section 3</a>.</p>
+  <div class="note">
+    <p><strong>Draft note for counsel (not part of the operative terms):</strong> A written Founder IP Assignment from Brandon Catuna to Cyber Tuna Labs LLC should be in the file before this ownership representation is published as final. Certain two-dimensional images in the Game are logged as AI-generated; U.S. copyright in those elements may be limited or unavailable. See the studio IP registry and the November 25, 2026 audit memo.</p>
+  </div>
+
+  <h2 id="preview">5. Web preview and test-store disclaimer</h2>
+  <p>The current public itch.io build is a <strong>free preview</strong> of a game that is <strong>in development</strong>.</p>
+  <ul>
+    <li>Features, balance, content, store offerings, and available virtual items may change, reset, or be removed as development continues. Progress, local saves, and entitlements in the preview <strong>may not carry forward</strong> to later preview versions or to a future mobile-store release.</li>
+    <li>The in-game store in the web preview is a <strong>test / simulated store</strong>. Buttons and catalog items that display prices are labeled <code>TEST</code> (or equivalent) in the confirmation flow and <strong>charge no real money</strong>. No payment card or other payment-method information is collected by the Game in the preview. Apple App Store and Google Play billing are not active in the current web preview.</li>
+    <li>A persistent notice such as “Free preview — purchases are simulated. No real money is charged.” is recommended on the public web store and, once implemented, should be treated as part of this disclosure.</li>
+    <li>The preview is provided so you can play and give feedback. It is not a paid product, and availability of the itch.io page is not guaranteed.</li>
+  </ul>
+
+  <h2 id="virtual-items">6. Virtual currency and in-app purchases</h2>
+
+  <h3 id="virtual-generally">6.1 Virtual items generally</h3>
+  <p>The Game may include soft currencies (including Iron, Copper, Alloy, and Quantum), a premium virtual currency called <strong>Flux</strong>, cosmetic items, a seasonal Flight Pass, a Remove Ads entitlement, a Starter Pack, and other virtual items (together, “Virtual Items”). Virtual Items are licensed to you, not sold. They have <strong>no cash value</strong>, are <strong>not real money</strong>, are <strong>non-transferable</strong>, and are not redeemable for any sum of money or monetary value from Cyber Tuna Labs, except where a refund is required by law or by Apple’s or Google’s refund rules.</p>
+  <p>You may not sell, trade, scrip, or transfer Virtual Items or Game accounts (none are offered today) outside the Game, or attempt to sublicense them.</p>
+
+  <h3 id="virtual-preview">6.2 Web preview</h3>
+  <p>In the current web preview, catalog prices are displayed for design and playtesting only. Confirming a <code>TEST</code> purchase <strong>does not charge you</strong> and does not create a paid entitlement that Cyber Tuna Labs is obligated to honor in a later paid build.</p>
+
+  <h3 id="virtual-mobile">6.3 Future mobile-store purchases</h3>
+  <p class="activate" role="note">[ACTIVATE OPERATIVE IAP TERMS WHEN MOBILE IAP GOES LIVE]</p>
+  <p>If and when a paid Apple App Store or Google Play build is released:</p>
+  <ul>
+    <li>Digital goods and Virtual Items offered in that mobile build will be purchased through <strong>Apple In-App Purchase</strong> or <strong>Google Play Billing</strong>, as applicable. Cyber Tuna Labs does not receive your payment card number.</li>
+    <li>Refunds, billing, and payment-account issues are handled under <strong>Apple’s or Google’s</strong> terms and refund policies. You should use the platform’s refund or purchase-history tools for payment disputes. This does not limit any non-waivable consumer right.</li>
+    <li><strong>Purchased Flux will not expire.</strong> Seasonal entitlements (for example, a Flight Pass for a stated season, or a time-limited launch bonus) may end when that season or bonus window ends. Any such window will be disclosed at or before purchase. As currently designed, the Starter Pack’s 48-hour “+100 Flux” launch bonus is the only portion of that offer that expires; the pack itself is designed to remain purchasable afterwards without that bonus.</li>
+    <li>Non-consumable purchases (as designed, including Remove Ads and the Starter Pack) will be restorable through a <strong>Restore Purchases</strong> control. You should use Restore Purchases after reinstalling the Game or changing devices, as the platform allows.</li>
+    <li>We may change prices or offerings for future purchases. That will not retroactively take away Flux you already purchased, except as reasonably required to address fraud, error, or a legal or platform obligation, or as otherwise permitted by law.</li>
+    <li>The Game’s current design has <strong>no loot boxes, no gacha, and no paid randomized outcomes</strong>. Fixed-content offers are shown before purchase. We will not add paid randomized mechanics without updating these Terms and providing any legally required odds disclosure.</li>
+  </ul>
+  <p>Until real mobile IAP is live, the paragraphs under this Section 6.3 heading are <strong>planned terms only</strong> and do not describe a current paid service.</p>
+
+  <h2 id="acceptable-use">7. Acceptable use</h2>
+  <p>You agree that you will not, and will not attempt to:</p>
+  <ul>
+    <li>Cheat, use unauthorized bots, automation, exploits, or unauthorized third-party software to gain an unfair advantage, manipulate progress, or interfere with the Game;</li>
+    <li>Reverse engineer, decompile, disassemble, or circumvent technical protection in the Game, except to the limited extent that mandatory law (for example, a legally recognized interoperability exception) prohibits us from restricting that activity, and then only for those legally permitted purposes;</li>
+    <li>Scrape, harvest, or systematically copy the Game, its content, or any related service, or use the Game to train a machine-learning model, except as mandatory law allows;</li>
+    <li>Copy, distribute, publicly perform or display, or make commercial use of the Game or its content without our prior written permission, other than ordinary personal play and ordinary sharing of your own screenshots or clips of your play, in a way that does not suggest our endorsement and does not copy substantial game assets;</li>
+    <li>Remove or alter copyright, trademark, or license notices, including third-party font and engine notices;</li>
+    <li>Interfere with or disrupt the Game, itch.io, or any related network, or introduce malware;</li>
+    <li>Use the Game for any unlawful purpose, or in a way that infringes or misappropriates our rights or the rights of others;</li>
+    <li>Misrepresent a <code>TEST</code> preview action as a real purchase, or make a false refund or chargeback claim.</li>
+  </ul>
+  <p>We may suspend or terminate your license if you materially breach these Terms.</p>
+
+  <h2 id="saves">8. User-exported save files</h2>
+  <p>The Game saves progress locally on your device or in your browser and allows you to <strong>manually export and import</strong> a JSON save file. There is <strong>no cloud save</strong> and <strong>no warranty</strong> that local or exported saves will be preserved, remain compatible with later versions, or transfer to a future mobile-store build.</p>
+  <p>You are responsible for exported save files in your possession, including their storage, backup, and security. If you share an exported save, you do so at your own risk. We have no obligation to restore a lost, corrupted, incompatible, or overwritten save. We may change the save format as the Game develops. Imported files that are malformed, tampered with, or used to cheat may be rejected, and we may treat use of manipulated saves as a breach of <a href="#acceptable-use">Section 7</a>.</p>
+
+  <h2 id="apple">9. Apple App Store required terms</h2>
+  <p>The following terms apply <strong>only</strong> if you obtain the Game from the <strong>Apple App Store</strong>. They are intended to satisfy Apple’s minimum requirements for a custom end-user license agreement. If Apple’s then-current Licensed Application End User License Agreement or App Store Review Guidelines require additional or different minimum terms, those minimum terms are incorporated to the extent required.</p>
+  <ul>
+    <li>These Terms are an agreement between you and Cyber Tuna Labs LLC only, and <strong>not</strong> with Apple Inc. or its subsidiaries (together, “Apple”). Cyber Tuna Labs, not Apple, is solely responsible for the Game and its content, to the extent provided in these Terms.</li>
+    <li>The license granted to you is limited, non-transferable, and allows use of the Game only on Apple-branded products that you own or control, and as permitted by the Usage Rules set forth in the Apple Media Services Terms and Conditions, except that the Game may be accessed and used by other accounts associated with the purchaser via Family Sharing or volume purchasing as Apple permits.</li>
+    <li><strong>Apple has no obligation whatsoever to furnish any maintenance or support services</strong> with respect to the Game. If maintenance or support is required by applicable law, Cyber Tuna Labs, not Apple, is responsible for providing it.</li>
+    <li>To the extent any warranty applies and is not effectively disclaimed, <strong>Cyber Tuna Labs, not Apple, is responsible for any product warranties</strong>. If the Game fails to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price for the Game to you (if any was charged by Apple). To the maximum extent permitted by applicable law, Apple will have no other warranty obligation whatsoever with respect to the Game, and any other claims, losses, liabilities, damages, costs, or expenses attributable to any failure to conform to any warranty are Cyber Tuna Labs’ responsibility, to the extent they cannot be disclaimed under these Terms and applicable law.</li>
+    <li>Cyber Tuna Labs, not Apple, is responsible for addressing any claims by you or any third party relating to the Game or to your possession and/or use of the Game, including but not limited to: (i) product-liability claims; (ii) any claim that the Game fails to conform to any applicable legal or regulatory requirement; and (iii) claims arising under consumer-protection, privacy, or similar legislation, including in connection with the Game’s use of the HealthKit or HomeKit frameworks if those frameworks are used (they are not used in the current design).</li>
+    <li>In the event of any third-party claim that the Game or your possession and use of the Game infringes that third party’s intellectual-property rights, Cyber Tuna Labs, not Apple, will be solely responsible for the investigation, defense, settlement, and discharge of that claim, to the extent required by these Terms and applicable law.</li>
+    <li>You represent and warrant that you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a “terrorist supporting” country, and that you are not listed on any U.S. Government list of prohibited or restricted parties.</li>
+    <li>You must comply with applicable third-party terms when using the Game (for example, your wireless-data agreement).</li>
+    <li>Apple and Apple’s subsidiaries are <strong>third-party beneficiaries</strong> of these Terms. Upon your acceptance of these Terms, Apple will have the right (and will be deemed to have accepted the right) to enforce these Terms against you as a third-party beneficiary.</li>
+  </ul>
+  <p>These Apple-specific terms do not apply to the itch.io web preview or to a Google Play build, except that nothing here limits any right Apple may have independently.</p>
+
+  <h2 id="warranty">10. Disclaimer of warranties</h2>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE GAME, THE WEB PREVIEW, VIRTUAL ITEMS, AND ALL RELATED MATERIALS ARE PROVIDED <strong>“AS IS”</strong> AND <strong>“AS AVAILABLE,”</strong> WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY. CYBER TUNA LABS DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT, AND ANY WARRANTIES ARISING FROM COURSE OF DEALING OR USAGE OF TRADE.</p>
+  <p>WITHOUT LIMITING THE FOREGOING, WE DO NOT WARRANT THAT THE GAME WILL BE UNINTERRUPTED, ERROR-FREE, SECURE, OR COMPATIBLE WITH ALL DEVICES OR BROWSERS; THAT DEFECTS WILL BE CORRECTED; THAT PROGRESS, SAVES, OR VIRTUAL ITEMS WILL BE PRESERVED; OR THAT THE WEB PREVIEW WILL REMAIN AVAILABLE. THE TEST STORE IN THE WEB PREVIEW CHARGES NO REAL MONEY AND CREATES NO PAID ENTITLEMENT.</p>
+  <p>SOME JURISDICTIONS DO NOT ALLOW CERTAIN WARRANTY DISCLAIMERS. IN THOSE JURISDICTIONS, THE DISCLAIMER APPLIES TO THE MAXIMUM EXTENT PERMITTED, AND YOU MAY HAVE ADDITIONAL RIGHTS THAT THESE TERMS CANNOT LAWFULLY EXCLUDE.</p>
+
+  <h2 id="liability">11. Limitation of liability</h2>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, CYBER TUNA LABS LLC AND ITS MEMBERS, MANAGERS, OFFICERS, EMPLOYEES, AGENTS, AND LICENSORS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, GOODWILL, OR PROGRESS, ARISING OUT OF OR RELATED TO THESE TERMS OR THE GAME, WHETHER BASED ON CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY, OR ANY OTHER THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, OUR TOTAL LIABILITY FOR ALL CLAIMS ARISING OUT OF OR RELATED TO THESE TERMS OR THE GAME WILL NOT EXCEED THE GREATER OF: (A) THE AMOUNT YOU PAID TO CYBER TUNA LABS (IF ANY) FOR THE GAME OR FOR VIRTUAL ITEMS IN THE TWELVE (12) MONTHS IMMEDIATELY BEFORE THE CLAIM; OR (B) TEN U.S. DOLLARS (US $10). FOR THE AVOIDANCE OF DOUBT, AMOUNTS YOU PAY TO APPLE OR GOOGLE FOR IN-APP PURCHASES, IF AND WHEN THOSE EXIST, ARE TREATED AS AMOUNTS PAID FOR THE GAME OR VIRTUAL ITEMS FOR PURPOSES OF THIS CAP, EXCEPT THAT THIS SENTENCE DOES NOT CHANGE APPLE’S OR GOOGLE’S REFUND PROCESS.</p>
+  <p>NOTHING IN THESE TERMS LIMITS OR EXCLUDES LIABILITY FOR FRAUD, FRAUDULENT MISREPRESENTATION, DEATH OR PERSONAL INJURY CAUSED BY NEGLIGENCE, GROSS NEGLIGENCE OR WILLFUL MISCONDUCT TO THE EXTENT THAT LIABILITY CANNOT BE LIMITED UNDER APPLICABLE LAW, OR ANY OTHER LIABILITY THAT CANNOT BE LIMITED OR EXCLUDED UNDER APPLICABLE LAW. IF YOU ARE A CONSUMER, THESE TERMS DO NOT AFFECT RIGHTS YOU HAVE THAT CANNOT BE WAIVED.</p>
+  <div class="note">
+    <p><strong>Draft note for counsel:</strong> The dollar cap and category exclusions should be reviewed for Nevada law, any mandatory consumer statutes in jurisdictions where the Game is offered, and Apple/Google platform rules before paid launch.</p>
+  </div>
+
+  <h2 id="governing-law">12. Governing law and venue</h2>
+  <p>These Terms, and any dispute, claim, or controversy arising out of or relating to these Terms or the Game, are governed by the laws of the <strong>State of Nevada</strong>, United States, without regard to its conflict-of-laws rules, and without prejudice to any mandatory consumer-protection or choice-of-law rules that cannot lawfully be waived in your jurisdiction.</p>
+  <p>Subject to those non-waivable rights, and except for small-claims matters brought in a court of competent jurisdiction, the exclusive venue for any court action will be the state or federal courts located in <strong>Las Vegas, Clark County, Nevada</strong>, and you and we consent to personal jurisdiction there.</p>
+  <p>Platform billing disputes for future App Store or Play purchases remain subject to Apple’s or Google’s applicable refund and dispute processes.</p>
+  <p class="activate" role="note">[FOR LICENSED NEVADA COUNSEL REVIEW BEFORE COMMERCIAL LAUNCH] This draft does <strong>not</strong> include a binding arbitration agreement or a class-action waiver. Some studios use those clauses in consumer terms. Whether Cyber Tuna Labs LLC should add them, how they would be presented for informed assent, how they would interact with Nevada law and the Federal Arbitration Act, and how they would interact with Apple or Google platform rules, must be decided by licensed Nevada counsel before a paid commercial launch. Until an updated, counsel-approved version is published, disputes are addressed under the governing-law and venue provisions above, without a contractual arbitration requirement or class-action waiver.</p>
+
+  <h2 id="termination">13. Termination</h2>
+  <p>These Terms remain in effect until terminated. You may terminate at any time by stopping use of the Game and deleting it or clearing the web preview’s site data, as applicable. We may suspend or terminate the license granted in <a href="#license">Section 3</a> if you materially breach these Terms, if we discontinue the Game or the preview, or if we are required to do so by law or by a platform.</p>
+  <p>On termination, the license ends and you must stop using the Game. Sections that by their nature should survive (including intellectual property, virtual-item disclaimers, acceptable-use remaining obligations, warranty disclaimers, limitation of liability, governing law and venue, and this survival sentence) will survive.</p>
+  <p>Termination does not automatically entitle you to a refund of any future mobile-store purchase; refunds follow Apple’s or Google’s rules and applicable law.</p>
+
+  <h2 id="changes">14. Changes to these Terms</h2>
+  <p>We may update these Terms from time to time. We will post the updated Terms with a new effective date at the public URL (once hosted) and, where practical, in the Game. If a change is material, we will provide additional notice if the law requires it. Your continued use of the Game after the updated Terms become effective constitutes acceptance, except where applicable law requires a different method of assent. If you do not agree to the updated Terms, you must stop using the Game.</p>
+  <p>Material changes associated with a move from a free preview to real-money mobile IAP or advertising will be published <strong>before</strong> that paid or ad-supported version ships.</p>
+
+  <h2 id="misc">15. Miscellaneous</h2>
+  <p>These Terms, together with the Privacy Policy and any in-Game disclosures they expressly incorporate (including test-store notices and Credits &amp; Licenses), are the entire agreement between you and Cyber Tuna Labs concerning the Game and supersede prior or contemporaneous agreements on that subject. If a provision is held unenforceable, it will be modified to the minimum extent necessary to make it enforceable, or if that is not possible, severed, and the remaining provisions will continue in effect. You may not assign these Terms without our prior written consent. We may assign them as part of a reorganization, merger, or sale of assets. A failure to enforce a provision is not a waiver. These Terms do not create a partnership, joint venture, or employment relationship, and except for Apple as a third-party beneficiary under <a href="#apple">Section 9</a> when that section applies, there are no third-party beneficiaries.</p>
+  <p>Headings are for convenience only. “Including” means “including without limitation.”</p>
+
+  <h2 id="contact">16. Contact</h2>
+  <div class="contact">
+    <p><strong>Cyber Tuna Labs LLC</strong><br>
+    A Nevada limited liability company<br>
+    Las Vegas, Nevada, United States</p>
+    <p><strong>Email:</strong> <a href="mailto:legal@cybertunalabs.com">legal@cybertunalabs.com</a></p>
+    <p>Please include “Swarm Genesis Terms” in the subject line.</p>
+    <p>We do not currently publish a verified street mailing address in this draft. Add one here if counsel recommends it and the address is confirmed.</p>
+  </div>
+</main>
+<footer>
+  <p>Companion documents: Privacy Policy (draft) and the Swarm Genesis bot handoff plan. This page is a draft for licensed counsel review and is not a final Terms of Service or EULA. © 2026 Cyber Tuna Labs LLC.</p>
+</footer>
+</body>
+</html>
