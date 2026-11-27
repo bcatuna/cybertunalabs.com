@@ -906,10 +906,10 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   transform: translate3d(-170%, 0, 0);
 }
 .tile-flash-swarm::before {
-  background: linear-gradient(100deg, transparent, rgba(56, 232, 255, 0.55), rgba(255, 90, 212, 0.42), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.24) 46%, rgba(214, 246, 255, 0.12) 54%, transparent);
 }
 .tile-flash-weave::before {
-  background: linear-gradient(100deg, transparent, rgba(217, 181, 131, 0.55), rgba(167, 139, 250, 0.48), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.24) 46%, rgba(255, 238, 214, 0.12) 54%, transparent);
 }
 .js-motion .feature.is-lit .tile-flash::before {
   animation: sheen-pass 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
