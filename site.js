@@ -2,6 +2,7 @@
   var reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
   var reduceMotion = reduceMedia.matches;
   var coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  var spotlightMedia = window.matchMedia("(pointer: coarse), (hover: none), (max-width: 980px)");
   var header = document.querySelector(".site-header");
   var progress = document.querySelector(".scroll-progress");
   var hero = document.querySelector(".hero");
@@ -14,7 +15,8 @@
   var weaveBacklight = document.querySelector("#cosmic-weave .weave-backlight");
   var swarm = document.querySelector("#swarm-genesis");
   var rims = [];
-  var flashes = [];
+  var gameLights = [];
+  var spotlightOn = spotlightMedia.matches;
   var scrollQueued = false;
   var needsMeasure = true;
   var lastY = -1;
@@ -64,9 +66,9 @@
       writeTransform(rim.spin, "");
       writeOpacity(rim.shell, "");
     });
-    flashes.forEach(function (item) {
-      if (item.el) item.el.classList.remove("is-flash");
-      item.inSweet = false;
+    gameLights.forEach(function (game) {
+      game.lit = false;
+      if (game.host) game.host.classList.remove("is-lit");
     });
   }
 
@@ -90,26 +92,17 @@
         height: host ? (host.offsetHeight || 1) : 1
       };
     });
-    flashes = Array.prototype.map.call(document.querySelectorAll(".tile-flash"), function (el) {
+    gameLights = [swarm, weave].filter(Boolean).map(function (host) {
       var prev = null;
-      for (var i = 0; i < flashes.length; i++) {
-        if (flashes[i].el === el) prev = flashes[i];
+      for (var i = 0; i < gameLights.length; i++) {
+        if (gameLights[i].host === host) prev = gameLights[i];
       }
-      var host = el.parentElement;
       return {
-        el: el,
         host: host,
-        top: host ? docTop(host) : 0,
-        height: host ? (host.offsetHeight || 1) : 1,
-        inSweet: prev ? prev.inSweet : false
+        top: docTop(host),
+        height: host.offsetHeight || 1,
+        lit: prev ? prev.lit : host.classList.contains("is-lit")
       };
-    });
-  }
-
-  function playFlash(el) {
-    el.classList.remove("is-flash");
-    window.requestAnimationFrame(function () {
-      if (!reduceMotion) el.classList.add("is-flash");
     });
   }
 
@@ -170,12 +163,18 @@
       if (rim.spin) writeTransform(rim.spin, "translate(-50%, -50%) rotate(" + rimAngle.toFixed(2) + "deg)");
       writeOpacity(rim.shell, (0.42 + rimBloom * 0.5).toFixed(3));
     }
-    for (var f = 0; f < flashes.length; f++) {
-      var flash = flashes[f];
-      var inSweet = flash.top <= sweetLine && flash.top + flash.height >= sweetLine;
-      if (inSweet && !flash.inSweet) playFlash(flash.el);
-      else if (!inSweet && flash.inSweet) flash.el.classList.remove("is-flash");
-      flash.inSweet = inSweet;
+    for (var g = 0; g < gameLights.length; g++) {
+      var game = gameLights[g];
+      var lit = false;
+      if (spotlightOn && game.host._near !== false) {
+        var overlaps = game.top <= sweetLine && game.top + game.height >= sweetLine;
+        var edge = Math.min(Math.abs(game.top - sweetLine), Math.abs(game.top + game.height - sweetLine));
+        lit = overlaps || edge < vh * 0.2;
+      }
+      if (game.lit !== lit) {
+        game.lit = lit;
+        game.host.classList.toggle("is-lit", lit);
+      }
     }
   }
 
@@ -286,6 +285,19 @@
         clearMotion();
       } else {
         document.documentElement.classList.add("js-motion");
+      }
+      queueMeasure();
+    });
+  }
+
+  if (spotlightMedia.addEventListener) {
+    spotlightMedia.addEventListener("change", function () {
+      spotlightOn = spotlightMedia.matches;
+      if (!spotlightOn) {
+        gameLights.forEach(function (game) {
+          game.lit = false;
+          game.host.classList.remove("is-lit");
+        });
       }
       queueMeasure();
     });

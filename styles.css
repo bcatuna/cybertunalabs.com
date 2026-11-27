@@ -898,43 +898,25 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
 .tile-flash::before {
   content: "";
   position: absolute;
-  top: -30%;
-  bottom: -30%;
+  top: 0;
+  bottom: 0;
   left: 0;
-  width: 48%;
-  background: linear-gradient(
-    102deg,
-    transparent 28%,
-    rgba(217, 181, 131, 0.02) 40%,
-    rgba(217, 181, 131, 0.34) 47%,
-    rgba(255, 250, 242, 0.62) 50%,
-    rgba(167, 139, 250, 0.4) 54%,
-    rgba(167, 139, 250, 0.04) 62%,
-    transparent 74%
-  );
-  transform: translate3d(-180%, 0, 0) skewX(-14deg);
-  opacity: 0;
+  width: 42%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translate3d(-170%, 0, 0);
 }
 .tile-flash-swarm::before {
-  background: linear-gradient(
-    102deg,
-    transparent 28%,
-    rgba(56, 232, 255, 0.02) 40%,
-    rgba(56, 232, 255, 0.42) 47%,
-    rgba(236, 253, 255, 0.62) 50%,
-    rgba(255, 90, 212, 0.4) 54%,
-    rgba(255, 90, 212, 0.05) 62%,
-    transparent 74%
-  );
+  background: linear-gradient(100deg, transparent, rgba(56, 232, 255, 0.55), rgba(255, 90, 212, 0.42), transparent);
 }
-.js-motion .tile-flash.is-flash::before,
-.js-motion .weave-flash.is-flash::before {
-  animation: weave-glass 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.tile-flash-weave::before {
+  background: linear-gradient(100deg, transparent, rgba(217, 181, 131, 0.55), rgba(167, 139, 250, 0.48), transparent);
 }
-@keyframes weave-glass {
-  0% { transform: translate3d(-180%, 0, 0) skewX(-14deg); opacity: 0; }
-  14% { opacity: 1; }
-  100% { transform: translate3d(320%, 0, 0) skewX(-14deg); opacity: 0; }
+.js-motion .feature.is-lit .tile-flash::before {
+  animation: sheen-pass 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes sheen-pass {
+  from { transform: translate3d(-170%, 0, 0); }
+  to { transform: translate3d(340%, 0, 0); }
 }
 .weave-backlight {
   position: absolute;
