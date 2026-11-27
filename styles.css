@@ -784,29 +784,40 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   transition: opacity 0.45s ease;
   pointer-events: none;
 }
-.laser {
+#swarm-genesis .sheen {
   position: absolute;
-  z-index: 4;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  border-radius: 99px;
-  background: linear-gradient(90deg, transparent, #8ef6ff 18%, #f4fdff 50%, #8ef6ff 82%, transparent);
-  box-shadow: 0 0 10px rgba(56, 232, 255, 0.85);
-  transform: scaleX(0);
-  transform-origin: left center;
-  opacity: 0;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: inherit;
   pointer-events: none;
 }
-.js-motion .motion-swarm.is-in .laser {
-  animation: laser-trace 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+#swarm-genesis .sheen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 42%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translate3d(-170%, 0, 0);
 }
-@keyframes laser-trace {
-  0% { transform: scaleX(0); opacity: 1; }
-  68% { transform: scaleX(1); opacity: 1; }
-  100% { transform: scaleX(1); opacity: 0.7; }
+#swarm-genesis.is-lit .sheen::before {
+  animation: sheen-pass 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+@keyframes sheen-pass {
+  from { transform: translate3d(-170%, 0, 0); }
+  to { transform: translate3d(340%, 0, 0); }
+}
+#swarm-genesis.is-lit {
+  --my: 6%;
+  border-color: var(--edge);
+  box-shadow:
+    inset 0 1.5px 0 var(--edge),
+    inset 0 22px 24px -20px var(--glow),
+    0 0 28px -14px var(--glow);
+}
+#swarm-genesis.is-lit::before { opacity: 1; }
 #cosmic-weave { isolation: isolate; }
 #cosmic-weave .showcase-media {
   perspective: 980px;
@@ -905,15 +916,16 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
     box-shadow 0.35s ease;
   transition-delay: 0s;
 }
-.js-motion .motion-swarm.reveal {
-  transition: opacity 0.32s ease;
+.js-motion .reveal.reveal-card {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.97);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--d, 0ms);
 }
-.js-motion .motion-swarm .device-float {
-  transform: translate3d(-18px, 0, 0) scale(0.94);
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.js-motion .motion-swarm.is-in .device-float {
+.js-motion .reveal.reveal-card.is-in {
+  opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
 }
 .js-motion .motion-pillar.reveal {
@@ -1141,10 +1153,10 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
     opacity: 1 !important;
     transform: none !important;
   }
-  .laser,
   .idea-sweep,
   .idea-sweep::before,
-  .mark-signal::after {
+  .mark-signal::after,
+  #swarm-genesis.is-lit .sheen::before {
     animation: none !important;
     opacity: 0 !important;
     transform: none !important;
