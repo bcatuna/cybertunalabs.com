@@ -370,6 +370,60 @@ h1 {
 .pillar h3 { margin: 0 0 0.45rem; font-size: 1.25rem; }
 .pillar p { margin: 0; color: var(--muted); }
 
+.idea-band {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.15rem 2.25rem;
+  padding: 1.4rem 1.45rem 1.5rem 1.6rem;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(520px 220px at 100% 0%, rgba(255, 90, 212, 0.18), transparent 68%),
+    radial-gradient(440px 200px at 0% 120%, rgba(142, 246, 255, 0.14), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+  position: relative;
+}
+.idea-band::before {
+  content: "";
+  position: absolute;
+  left: 0.7rem;
+  top: 1.15rem;
+  bottom: 1.15rem;
+  width: 3px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, var(--cyan), var(--magenta));
+}
+.idea-copy {
+  flex: 1 1 18rem;
+  min-width: 0;
+  padding-left: 0.85rem;
+}
+.idea-band .kicker { margin: 0 0 0.35rem; }
+.idea-band h3 {
+  margin: 0;
+  font-size: clamp(1.85rem, 3vw, 2.45rem);
+  font-weight: 740;
+}
+.idea-copy p:not(.kicker) {
+  margin: 0.4rem 0 0;
+  max-width: 34rem;
+  color: var(--muted);
+}
+.idea-mail {
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-width: 0;
+  text-align: center;
+  line-height: 1.25;
+}
+.idea-mail span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -488,6 +542,8 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   .studio-mark img { width: min(250px, 72%); }
   .actions .button { width: 100%; }
   .cards { grid-template-columns: 1fr; }
+  .idea-band { align-items: stretch; padding-right: 1.15rem; }
+  .idea-mail { width: 100%; }
   .section { padding: 3.6rem 0; }
 }
 @media (prefers-reduced-motion: reduce) {
