@@ -2,7 +2,6 @@
   var reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
   var reduceMotion = reduceMedia.matches;
   var coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-  var spotlightMedia = window.matchMedia("(pointer: coarse), (hover: none), (max-width: 980px)");
   var header = document.querySelector(".site-header");
   var progress = document.querySelector(".scroll-progress");
   var hero = document.querySelector(".hero");
@@ -12,12 +11,10 @@
   var tagline = document.querySelector(".tagline-motion");
   var weave = document.querySelector("#cosmic-weave");
   var weaveFloat = document.querySelector("#cosmic-weave .device-float");
-  var weaveRim = document.querySelector("#cosmic-weave .weave-rim");
-  var weaveRimSpin = document.querySelector("#cosmic-weave .weave-rim-spin");
   var weaveBacklight = document.querySelector("#cosmic-weave .weave-backlight");
-  var weaveFlash = document.querySelector("#cosmic-weave .weave-flash");
-  var weaveInSweet = false;
   var swarm = document.querySelector("#swarm-genesis");
+  var rims = [];
+  var flashes = [];
   var scrollQueued = false;
   var needsMeasure = true;
   var lastY = -1;
@@ -26,10 +23,6 @@
   var heroHeight = 1;
   var weaveTop = 0;
   var weaveHeight = 1;
-  var swarmTop = 0;
-  var swarmHeight = 1;
-  var swarmLit = false;
-  var spotlightOn = spotlightMedia.matches;
 
   function clamp(n, min, max) {
     return Math.min(max, Math.max(min, n));
@@ -65,14 +58,16 @@
     writeTransform(tagline, "");
     writeOpacity(tagline, "");
     writeTransform(weaveFloat, "");
-    writeTransform(weaveRimSpin, "");
-    writeOpacity(weaveRim, "");
     writeTransform(weaveBacklight, "");
     writeOpacity(weaveBacklight, "");
-    if (weaveFlash) weaveFlash.classList.remove("is-flash");
-    weaveInSweet = false;
-    if (swarm) swarm.classList.remove("is-lit");
-    swarmLit = false;
+    rims.forEach(function (rim) {
+      writeTransform(rim.spin, "");
+      writeOpacity(rim.shell, "");
+    });
+    flashes.forEach(function (item) {
+      if (item.el) item.el.classList.remove("is-flash");
+      item.inSweet = false;
+    });
   }
 
   function measure() {
@@ -85,10 +80,37 @@
       weaveTop = docTop(weave);
       weaveHeight = weave.offsetHeight || 1;
     }
-    if (swarm) {
-      swarmTop = docTop(swarm);
-      swarmHeight = swarm.offsetHeight || 1;
-    }
+    rims = Array.prototype.map.call(document.querySelectorAll(".card-rim"), function (shell) {
+      var host = shell.parentElement;
+      return {
+        shell: shell,
+        spin: shell.querySelector(".card-rim-spin"),
+        host: host,
+        top: host ? docTop(host) : 0,
+        height: host ? (host.offsetHeight || 1) : 1
+      };
+    });
+    flashes = Array.prototype.map.call(document.querySelectorAll(".tile-flash"), function (el) {
+      var prev = null;
+      for (var i = 0; i < flashes.length; i++) {
+        if (flashes[i].el === el) prev = flashes[i];
+      }
+      var host = el.parentElement;
+      return {
+        el: el,
+        host: host,
+        top: host ? docTop(host) : 0,
+        height: host ? (host.offsetHeight || 1) : 1,
+        inSweet: prev ? prev.inSweet : false
+      };
+    });
+  }
+
+  function playFlash(el) {
+    el.classList.remove("is-flash");
+    window.requestAnimationFrame(function () {
+      if (!reduceMotion) el.classList.add("is-flash");
+    });
   }
 
   function paintMotion(y) {
@@ -132,41 +154,28 @@
         weaveFloat,
         "rotateX(" + tilt.toFixed(2) + "deg) scale(" + (0.972 + bloom * 0.028).toFixed(4) + ")"
       );
-      var travel = clamp((y + vh * 0.4 - weaveTop) / Math.max(weaveHeight, 1), 0, 1);
-      var angle = -28 + travel * 210;
-      if (weaveRimSpin) {
-        writeTransform(weaveRimSpin, "translate(-50%, -50%) rotate(" + angle.toFixed(2) + "deg)");
-      }
-      if (weaveRim) writeOpacity(weaveRim, (0.42 + bloom * 0.5).toFixed(3));
       if (weaveBacklight) {
         writeTransform(weaveBacklight, "translateX(-50%) scale(" + (0.98 + bloom * 0.035).toFixed(4) + ")");
         writeOpacity(weaveBacklight, (0.62 + bloom * 0.38).toFixed(3));
       }
-      var sweetLine = y + vh * 0.4;
-      var inSweet = weaveTop <= sweetLine && weaveTop + weaveHeight >= sweetLine;
-      if (weaveFlash && inSweet && !weaveInSweet) {
-        weaveFlash.classList.remove("is-flash");
-        window.requestAnimationFrame(function () {
-          if (!reduceMotion && weaveFlash) weaveFlash.classList.add("is-flash");
-        });
-      } else if (weaveFlash && !inSweet && weaveInSweet) {
-        weaveFlash.classList.remove("is-flash");
-      }
-      weaveInSweet = inSweet;
     }
 
-    if (swarm) {
-      var lit = false;
-      if (spotlightOn && swarm._near !== false) {
-        var sweet = y + vh * 0.4;
-        var overlaps = swarmTop <= sweet && swarmTop + swarmHeight >= sweet;
-        var edge = Math.min(Math.abs(swarmTop - sweet), Math.abs(swarmTop + swarmHeight - sweet));
-        lit = overlaps || edge < vh * 0.2;
-      }
-      if (swarmLit !== lit) {
-        swarmLit = lit;
-        swarm.classList.toggle("is-lit", lit);
-      }
+    var sweetLine = y + vh * 0.4;
+    for (var r = 0; r < rims.length; r++) {
+      var rim = rims[r];
+      var rimTravel = clamp((sweetLine - rim.top) / Math.max(rim.height, 1), 0, 1);
+      var rimAngle = -28 + rimTravel * 210;
+      var rimDist = Math.abs((rim.top + rim.height * 0.42) - sweetLine);
+      var rimBloom = clamp(1 - rimDist / (vh * 0.72), 0, 1);
+      if (rim.spin) writeTransform(rim.spin, "translate(-50%, -50%) rotate(" + rimAngle.toFixed(2) + "deg)");
+      writeOpacity(rim.shell, (0.42 + rimBloom * 0.5).toFixed(3));
+    }
+    for (var f = 0; f < flashes.length; f++) {
+      var flash = flashes[f];
+      var inSweet = flash.top <= sweetLine && flash.top + flash.height >= sweetLine;
+      if (inSweet && !flash.inSweet) playFlash(flash.el);
+      else if (!inSweet && flash.inSweet) flash.el.classList.remove("is-flash");
+      flash.inSweet = inSweet;
     }
   }
 
@@ -207,13 +216,6 @@
 
   if (!reduceMotion) {
     document.documentElement.classList.add("js-motion");
-    if (swarm && !swarm.querySelector(".sheen")) {
-      var sheen = document.createElement("span");
-      sheen.className = "sheen";
-      sheen.setAttribute("aria-hidden", "true");
-      swarm.appendChild(sheen);
-    }
-
     if ("IntersectionObserver" in window) {
       var liveObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -228,7 +230,7 @@
 
       var groups = [
         "#games > .wrap > .kicker, #games > .wrap > h2, #games > .wrap > .lede",
-        "#swarm-genesis",
+        "#swarm-genesis, #cosmic-weave",
         "#studio > .wrap > .kicker, #studio > .wrap > h2, #studio > .wrap > .lede",
         "#studio .pillar",
         "#studio .idea-band",
@@ -265,7 +267,7 @@
       groups.forEach(function (selector) {
         Array.prototype.forEach.call(document.querySelectorAll(selector), function (el) {
           el.classList.add("reveal");
-          if (el.id === "swarm-genesis") el.classList.add("reveal-card");
+          if (el.id === "swarm-genesis" || el.id === "cosmic-weave") el.classList.add("reveal-card");
           else if (el.classList.contains("pillar")) el.classList.add("motion-pillar");
           else if (el.classList.contains("idea-band")) el.classList.add("motion-idea");
           else if (el.classList.contains("card") || el.classList.contains("launch")) el.classList.add("motion-press");
@@ -284,17 +286,6 @@
         clearMotion();
       } else {
         document.documentElement.classList.add("js-motion");
-      }
-      queueMeasure();
-    });
-  }
-
-  if (spotlightMedia.addEventListener) {
-    spotlightMedia.addEventListener("change", function () {
-      spotlightOn = spotlightMedia.matches;
-      if (!spotlightOn && swarm) {
-        swarm.classList.remove("is-lit");
-        swarmLit = false;
       }
       queueMeasure();
     });
