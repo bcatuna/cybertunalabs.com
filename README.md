@@ -10,7 +10,7 @@ The site is static HTML and CSS. GitHub Pages can serve it from the root of the 
 - `/swarm-genesis/privacy/` — Swarm Genesis Privacy Policy
 - `/swarm-genesis/terms/` — Swarm Genesis Terms of Service and EULA
 
-The policy pages keep the legal text and draft notices from the source documents. A studio bar above each document links back to this site.
+The policy pages are the public Privacy Policy and Terms of Service. A studio bar above each document links back to the studio and to the companion policy.
 
 Swarm Genesis logo, key art, nebula, and screenshots in `assets/` are the studio’s published game art, optimized for the web.
 
