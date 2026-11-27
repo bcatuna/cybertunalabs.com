@@ -2,7 +2,6 @@
   var reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
   var reduceMotion = reduceMedia.matches;
   var coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-  var spotlightMedia = window.matchMedia("(pointer: coarse), (hover: none), (max-width: 980px)");
   var header = document.querySelector(".site-header");
   var progress = document.querySelector(".scroll-progress");
   var hero = document.querySelector(".hero");
@@ -10,17 +9,17 @@
   var driftNear = document.querySelector(".hero-drift-near");
   var emblem = document.querySelector(".emblem-motion");
   var tagline = document.querySelector(".tagline-motion");
-  var floatNodes = document.querySelectorAll(".device-float");
-  var spotNodes = document.querySelectorAll(".feature, .pillar, .idea-band, .card, .launch");
+  var weave = document.querySelector("#cosmic-weave");
+  var weaveFloat = document.querySelector("#cosmic-weave .device-float");
+  var weaveAura = document.querySelector(".weave-aura");
   var scrollQueued = false;
   var needsMeasure = true;
   var lastY = -1;
   var viewH = window.innerHeight || 1;
   var heroTop = 0;
   var heroHeight = 1;
-  var floats = [];
-  var spots = [];
-  var spotlightOn = spotlightMedia.matches;
+  var weaveTop = 0;
+  var weaveHeight = 1;
 
   function clamp(n, min, max) {
     return Math.min(max, Math.max(min, n));
@@ -55,13 +54,9 @@
     writeOpacity(emblem, "");
     writeTransform(tagline, "");
     writeOpacity(tagline, "");
-    Array.prototype.forEach.call(floatNodes, function (el) {
-      writeTransform(el, "");
-    });
-    Array.prototype.forEach.call(spotNodes, function (el) {
-      el.classList.remove("is-lit");
-    });
-    spots.forEach(function (spot) { spot.lit = false; });
+    writeTransform(weaveFloat, "");
+    writeTransform(weaveAura, "");
+    writeOpacity(weaveAura, "");
   }
 
   function measure() {
@@ -70,17 +65,10 @@
       heroTop = docTop(hero);
       heroHeight = hero.offsetHeight || 1;
     }
-    floats = Array.prototype.map.call(floatNodes, function (el) {
-      return { el: el, top: docTop(el), height: el.offsetHeight || 1 };
-    });
-    spots = Array.prototype.map.call(spotNodes, function (el) {
-      return {
-        el: el,
-        top: docTop(el),
-        height: el.offsetHeight || 1,
-        lit: el.classList.contains("is-lit")
-      };
-    });
+    if (weave) {
+      weaveTop = docTop(weave);
+      weaveHeight = weave.offsetHeight || 1;
+    }
   }
 
   function paintMotion(y) {
@@ -115,47 +103,18 @@
       }
     }
 
-    var viewMid = y + vh * 0.5;
-    for (var i = 0; i < floats.length; i++) {
-      var item = floats[i];
-      var rel = (item.top + item.height * 0.5 - viewMid) / vh;
-      var shift = clamp(rel * 22, -14, 14);
-      writeTransform(item.el, "translate3d(0," + shift.toFixed(2) + "px,0)");
-    }
-
-    if (!spotlightOn) return;
-    var sweet = y + vh * 0.4;
-    var best = -1;
-    var bestScore = Infinity;
-    for (var j = 0; j < spots.length; j++) {
-      var spot = spots[j];
-      if (spot.el._near === false) {
-        if (spot.lit) {
-          spot.lit = false;
-          spot.el.classList.remove("is-lit");
-        }
-        continue;
-      }
-      var overlaps = spot.top <= sweet && spot.top + spot.height >= sweet;
-      var edge = Math.min(Math.abs(spot.top - sweet), Math.abs(spot.top + spot.height - sweet));
-      var score = overlaps ? Math.abs(spot.top + spot.height * 0.5 - sweet) : edge + 100000;
-      if (score < bestScore) {
-        bestScore = score;
-        best = j;
-      }
-    }
-    var lightIndex = -1;
-    if (best >= 0) {
-      var chosen = spots[best];
-      var chosenEdge = Math.min(Math.abs(chosen.top - sweet), Math.abs(chosen.top + chosen.height - sweet));
-      var chosenOverlap = chosen.top <= sweet && chosen.top + chosen.height >= sweet;
-      if (chosenOverlap || chosenEdge < vh * 0.2) lightIndex = best;
-    }
-    for (var k = 0; k < spots.length; k++) {
-      var on = k === lightIndex;
-      if (spots[k].lit !== on) {
-        spots[k].lit = on;
-        spots[k].el.classList.toggle("is-lit", on);
+    if (weave && weaveFloat && weave._near !== false) {
+      var center = weaveTop + weaveHeight * 0.42;
+      var dist = center - (y + vh * 0.4);
+      var tilt = clamp(dist / vh * 16, 0, 7);
+      var bloom = clamp(1 - Math.abs(dist) / (vh * 0.72), 0, 1);
+      writeTransform(
+        weaveFloat,
+        "rotateX(" + tilt.toFixed(2) + "deg) scale(" + (0.972 + bloom * 0.028).toFixed(4) + ")"
+      );
+      if (weaveAura) {
+        writeTransform(weaveAura, "scale(" + (0.76 + bloom * 0.38).toFixed(4) + ")");
+        writeOpacity(weaveAura, (0.22 + bloom * 0.78).toFixed(3));
       }
     }
   }
@@ -197,12 +156,6 @@
 
   if (!reduceMotion) {
     document.documentElement.classList.add("js-motion");
-    Array.prototype.forEach.call(spotNodes, function (el) {
-      var sheen = document.createElement("span");
-      sheen.className = "sheen";
-      sheen.setAttribute("aria-hidden", "true");
-      el.appendChild(sheen);
-    });
 
     if ("IntersectionObserver" in window) {
       var liveObserver = new IntersectionObserver(function (entries) {
@@ -213,17 +166,15 @@
         queueScroll();
       }, { rootMargin: "20% 0px 20% 0px", threshold: 0 });
       if (hero) liveObserver.observe(hero);
-      Array.prototype.forEach.call(floatNodes, function (el) { liveObserver.observe(el); });
-      Array.prototype.forEach.call(spotNodes, function (el) { liveObserver.observe(el); });
+      if (weave) liveObserver.observe(weave);
 
-      var cardSelector = ".feature, .pillar, .idea-band, .card, .launch";
       var groups = [
         "#games > .wrap > .kicker, #games > .wrap > h2, #games > .wrap > .lede",
-        "#games .feature",
+        "#swarm-genesis",
         "#studio > .wrap > .kicker, #studio > .wrap > h2, #studio > .wrap > .lede",
         "#studio .pillar",
         "#studio .idea-band",
-        "#press > .wrap > .kicker, #press > .wrap > h2, #press > .wrap > .lede",
+        "#press > .wrap > .kicker, #press > .wrap > h2, #press > .wrap > .lede, #press .press-rule",
         "#press .card, #press .launch"
       ];
       var revealObserver = new IntersectionObserver(function (entries) {
@@ -238,20 +189,29 @@
         });
         incoming.forEach(function (entry, index) {
           var el = entry.target;
-          var delay = index * 80;
+          var delay = index * 90;
+          var settle = 760;
+          if (el.classList.contains("motion-swarm")) settle = 520;
+          else if (el.classList.contains("motion-pillar")) settle = 920;
+          else if (el.classList.contains("motion-idea")) settle = 1200;
+          else if (el.classList.contains("press-rule")) settle = 1100;
           el.style.setProperty("--d", delay + "ms");
           el.classList.add("is-in");
           revealObserver.unobserve(el);
           window.setTimeout(function () {
             el.classList.add("is-settled");
-          }, delay + 980);
+          }, delay + settle);
         });
       }, { threshold: 0.12, rootMargin: "0px 0px -4% 0px" });
 
       groups.forEach(function (selector) {
         Array.prototype.forEach.call(document.querySelectorAll(selector), function (el) {
           el.classList.add("reveal");
-          if (el.matches(cardSelector)) el.classList.add("reveal-card");
+          if (el.id === "swarm-genesis") el.classList.add("motion-swarm");
+          else if (el.classList.contains("pillar")) el.classList.add("motion-pillar");
+          else if (el.classList.contains("idea-band")) el.classList.add("motion-idea");
+          else if (el.classList.contains("card") || el.classList.contains("launch")) el.classList.add("motion-press");
+          else if (!el.classList.contains("press-rule")) el.classList.add("reveal-quiet");
           revealObserver.observe(el);
         });
       });
@@ -266,19 +226,6 @@
         clearMotion();
       } else {
         document.documentElement.classList.add("js-motion");
-      }
-      queueMeasure();
-    });
-  }
-
-  if (spotlightMedia.addEventListener) {
-    spotlightMedia.addEventListener("change", function () {
-      spotlightOn = spotlightMedia.matches;
-      if (!spotlightOn) {
-        Array.prototype.forEach.call(spotNodes, function (el) {
-          el.classList.remove("is-lit");
-        });
-        spots.forEach(function (spot) { spot.lit = false; });
       }
       queueMeasure();
     });
