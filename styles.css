@@ -426,15 +426,11 @@ h1 {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.8rem;
   margin-top: 1.6rem;
 }
-.cards .card:nth-child(4),
-.cards .card:nth-child(5) { grid-column: span 3; }
 .card {
-  grid-column: span 2;
-  min-width: 0;
   padding: 1.1rem 1.05rem 1.2rem;
   border-radius: 18px;
   border: 1px solid var(--line);
@@ -529,10 +525,6 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   .feature-copy { order: 2; }
   .showcase-media { order: 1; }
   .cards { grid-template-columns: 1fr 1fr; }
-  .cards .card,
-  .cards .card:nth-child(4),
-  .cards .card:nth-child(5) { grid-column: auto; }
-  .cards .card:last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 720px) {
   :root { --header: 7.6rem; }
@@ -550,8 +542,6 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   .studio-mark img { width: min(250px, 72%); }
   .actions .button { width: 100%; }
   .cards { grid-template-columns: 1fr; }
-  .cards .card,
-  .cards .card:last-child { grid-column: auto; }
   .idea-band { align-items: stretch; padding-right: 1.15rem; }
   .idea-mail { width: 100%; }
   .section { padding: 3.6rem 0; }
