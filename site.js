@@ -15,6 +15,8 @@
   var weaveRim = document.querySelector("#cosmic-weave .weave-rim");
   var weaveRimSpin = document.querySelector("#cosmic-weave .weave-rim-spin");
   var weaveBacklight = document.querySelector("#cosmic-weave .weave-backlight");
+  var weaveFlash = document.querySelector("#cosmic-weave .weave-flash");
+  var weaveInSweet = false;
   var swarm = document.querySelector("#swarm-genesis");
   var scrollQueued = false;
   var needsMeasure = true;
@@ -67,6 +69,8 @@
     writeOpacity(weaveRim, "");
     writeTransform(weaveBacklight, "");
     writeOpacity(weaveBacklight, "");
+    if (weaveFlash) weaveFlash.classList.remove("is-flash");
+    weaveInSweet = false;
     if (swarm) swarm.classList.remove("is-lit");
     swarmLit = false;
   }
@@ -138,6 +142,17 @@
         writeTransform(weaveBacklight, "translateX(-50%) scale(" + (0.98 + bloom * 0.035).toFixed(4) + ")");
         writeOpacity(weaveBacklight, (0.62 + bloom * 0.38).toFixed(3));
       }
+      var sweetLine = y + vh * 0.4;
+      var inSweet = weaveTop <= sweetLine && weaveTop + weaveHeight >= sweetLine;
+      if (weaveFlash && inSweet && !weaveInSweet) {
+        weaveFlash.classList.remove("is-flash");
+        window.requestAnimationFrame(function () {
+          if (!reduceMotion && weaveFlash) weaveFlash.classList.add("is-flash");
+        });
+      } else if (weaveFlash && !inSweet && weaveInSweet) {
+        weaveFlash.classList.remove("is-flash");
+      }
+      weaveInSweet = inSweet;
     }
 
     if (swarm) {
