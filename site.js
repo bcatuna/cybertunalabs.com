@@ -12,7 +12,9 @@
   var tagline = document.querySelector(".tagline-motion");
   var weave = document.querySelector("#cosmic-weave");
   var weaveFloat = document.querySelector("#cosmic-weave .device-float");
-  var weaveAura = document.querySelector(".weave-aura");
+  var weaveRim = document.querySelector("#cosmic-weave .weave-rim");
+  var weaveRimSpin = document.querySelector("#cosmic-weave .weave-rim-spin");
+  var weaveBacklight = document.querySelector("#cosmic-weave .weave-backlight");
   var swarm = document.querySelector("#swarm-genesis");
   var scrollQueued = false;
   var needsMeasure = true;
@@ -61,8 +63,10 @@
     writeTransform(tagline, "");
     writeOpacity(tagline, "");
     writeTransform(weaveFloat, "");
-    writeTransform(weaveAura, "");
-    writeOpacity(weaveAura, "");
+    writeTransform(weaveRimSpin, "");
+    writeOpacity(weaveRim, "");
+    writeTransform(weaveBacklight, "");
+    writeOpacity(weaveBacklight, "");
     if (swarm) swarm.classList.remove("is-lit");
     swarmLit = false;
   }
@@ -124,9 +128,15 @@
         weaveFloat,
         "rotateX(" + tilt.toFixed(2) + "deg) scale(" + (0.972 + bloom * 0.028).toFixed(4) + ")"
       );
-      if (weaveAura) {
-        writeTransform(weaveAura, "scale(" + (0.76 + bloom * 0.38).toFixed(4) + ")");
-        writeOpacity(weaveAura, (0.22 + bloom * 0.78).toFixed(3));
+      var travel = clamp((y + vh * 0.4 - weaveTop) / Math.max(weaveHeight, 1), 0, 1);
+      var angle = -28 + travel * 210;
+      if (weaveRimSpin) {
+        writeTransform(weaveRimSpin, "translate(-50%, -50%) rotate(" + angle.toFixed(2) + "deg)");
+      }
+      if (weaveRim) writeOpacity(weaveRim, (0.42 + bloom * 0.5).toFixed(3));
+      if (weaveBacklight) {
+        writeTransform(weaveBacklight, "translateX(-50%) scale(" + (0.98 + bloom * 0.035).toFixed(4) + ")");
+        writeOpacity(weaveBacklight, (0.62 + bloom * 0.38).toFixed(3));
       }
     }
 
