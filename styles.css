@@ -784,40 +784,7 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   transition: opacity 0.45s ease;
   pointer-events: none;
 }
-#swarm-genesis .sheen {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  overflow: hidden;
-  border-radius: inherit;
-  pointer-events: none;
-}
-#swarm-genesis .sheen::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 42%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transform: translate3d(-170%, 0, 0);
-}
-#swarm-genesis.is-lit .sheen::before {
-  animation: sheen-pass 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes sheen-pass {
-  from { transform: translate3d(-170%, 0, 0); }
-  to { transform: translate3d(340%, 0, 0); }
-}
-#swarm-genesis.is-lit {
-  --my: 6%;
-  border-color: var(--edge);
-  box-shadow:
-    inset 0 1.5px 0 var(--edge),
-    inset 0 22px 24px -20px var(--glow),
-    0 0 28px -14px var(--glow);
-}
-#swarm-genesis.is-lit::before { opacity: 1; }
+#swarm-genesis,
 #cosmic-weave { isolation: isolate; }
 #cosmic-weave .showcase-media {
   perspective: 980px;
@@ -827,7 +794,7 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
 #cosmic-weave .feature-copy { position: relative; z-index: 1; }
 #cosmic-weave .device,
 #cosmic-weave .thumbs { position: relative; z-index: 1; }
-.weave-rim {
+.card-rim {
   position: absolute;
   z-index: 4;
   inset: 0;
@@ -845,12 +812,15 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
     linear-gradient(#000 0 0);
   mask-composite: exclude;
 }
-.weave-rim-spin {
+.card-rim-spin {
   position: absolute;
   left: 50%;
   top: 50%;
   width: 155%;
   height: 155%;
+  transform: translate(-50%, -50%) rotate(-18deg);
+}
+.card-rim-weave .card-rim-spin {
   background: conic-gradient(
     from 0deg,
     transparent 0 292deg,
@@ -860,9 +830,64 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
     rgba(167, 139, 250, 0) 348deg,
     transparent 360deg
   );
-  transform: translate(-50%, -50%) rotate(-18deg);
 }
-.weave-flash {
+.card-rim-swarm .card-rim-spin {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 292deg,
+    rgba(56, 232, 255, 0) 304deg,
+    #38e8ff 318deg,
+    #ff5ad4 334deg,
+    rgba(255, 90, 212, 0) 348deg,
+    transparent 360deg
+  );
+}
+.card-rim-cyan .card-rim-spin {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 292deg,
+    rgba(142, 246, 255, 0) 304deg,
+    #8ef6ff 318deg,
+    #38e8ff 334deg,
+    rgba(56, 232, 255, 0) 348deg,
+    transparent 360deg
+  );
+}
+.card-rim-violet .card-rim-spin {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 292deg,
+    rgba(167, 139, 250, 0) 304deg,
+    #ddd6fe 318deg,
+    #a78bfa 334deg,
+    rgba(167, 139, 250, 0) 348deg,
+    transparent 360deg
+  );
+}
+.card-rim-pink .card-rim-spin {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 292deg,
+    rgba(244, 114, 182, 0) 304deg,
+    #fda4d4 318deg,
+    #f472b6 334deg,
+    rgba(244, 114, 182, 0) 348deg,
+    transparent 360deg
+  );
+}
+.card-rim-blend .card-rim-spin {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 292deg,
+    rgba(142, 246, 255, 0) 304deg,
+    #8ef6ff 316deg,
+    #a78bfa 326deg,
+    #ff5ad4 338deg,
+    rgba(255, 90, 212, 0) 350deg,
+    transparent 360deg
+  );
+}
+.tile-flash {
   position: absolute;
   z-index: 6;
   inset: 0;
@@ -870,7 +895,7 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   border-radius: inherit;
   pointer-events: none;
 }
-.weave-flash::before {
+.tile-flash::before {
   content: "";
   position: absolute;
   top: -30%;
@@ -890,6 +915,19 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   transform: translate3d(-180%, 0, 0) skewX(-14deg);
   opacity: 0;
 }
+.tile-flash-swarm::before {
+  background: linear-gradient(
+    102deg,
+    transparent 28%,
+    rgba(56, 232, 255, 0.02) 40%,
+    rgba(56, 232, 255, 0.42) 47%,
+    rgba(236, 253, 255, 0.62) 50%,
+    rgba(255, 90, 212, 0.4) 54%,
+    rgba(255, 90, 212, 0.05) 62%,
+    transparent 74%
+  );
+}
+.js-motion .tile-flash.is-flash::before,
 .js-motion .weave-flash.is-flash::before {
   animation: weave-glass 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -968,7 +1006,7 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
 .js-motion .emblem-motion,
 .js-motion .tagline-motion,
 .js-motion #cosmic-weave .device-float,
-.js-motion .weave-rim-spin,
+.js-motion .card-rim-spin,
 .js-motion .weave-backlight {
   will-change: transform;
 }
@@ -1056,14 +1094,6 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   transform: scale(1);
 }
 .js-motion .motion-idea.is-in::before { opacity: 0.82; }
-.js-motion .motion-idea.is-in .idea-sweep::before {
-  animation: idea-orbit 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes idea-orbit {
-  0% { transform: translate(-50%, -50%) rotate(-24deg); opacity: 0; }
-  14% { opacity: 1; }
-  100% { transform: translate(-50%, -50%) rotate(210deg); opacity: 0; }
-}
 .js-motion .press-rule.reveal {
   opacity: 1;
   transform: scaleX(0);
@@ -1230,7 +1260,8 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
   .idea-sweep,
   .idea-sweep::before,
   .mark-signal::after,
-  #swarm-genesis.is-lit .sheen::before,
+  .tile-flash,
+  .tile-flash::before,
   .weave-flash,
   .weave-flash::before {
     animation: none !important;
@@ -1238,6 +1269,8 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.84); }
     transform: none !important;
   }
   .weave-backlight { opacity: 0.7 !important; transform: translateX(-50%) !important; }
+  .card-rim,
   .weave-rim { opacity: 0.7 !important; }
+  .card-rim-spin,
   .weave-rim-spin { transform: translate(-50%, -50%) rotate(28deg) !important; }
 }
