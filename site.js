@@ -2,6 +2,7 @@
   var reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
   var reduceMotion = reduceMedia.matches;
   var coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  var spotlightMedia = window.matchMedia("(pointer: coarse), (hover: none), (max-width: 980px)");
   var header = document.querySelector(".site-header");
   var progress = document.querySelector(".scroll-progress");
   var hero = document.querySelector(".hero");
@@ -12,6 +13,7 @@
   var weave = document.querySelector("#cosmic-weave");
   var weaveFloat = document.querySelector("#cosmic-weave .device-float");
   var weaveAura = document.querySelector(".weave-aura");
+  var swarm = document.querySelector("#swarm-genesis");
   var scrollQueued = false;
   var needsMeasure = true;
   var lastY = -1;
@@ -20,6 +22,10 @@
   var heroHeight = 1;
   var weaveTop = 0;
   var weaveHeight = 1;
+  var swarmTop = 0;
+  var swarmHeight = 1;
+  var swarmLit = false;
+  var spotlightOn = spotlightMedia.matches;
 
   function clamp(n, min, max) {
     return Math.min(max, Math.max(min, n));
@@ -57,6 +63,8 @@
     writeTransform(weaveFloat, "");
     writeTransform(weaveAura, "");
     writeOpacity(weaveAura, "");
+    if (swarm) swarm.classList.remove("is-lit");
+    swarmLit = false;
   }
 
   function measure() {
@@ -68,6 +76,10 @@
     if (weave) {
       weaveTop = docTop(weave);
       weaveHeight = weave.offsetHeight || 1;
+    }
+    if (swarm) {
+      swarmTop = docTop(swarm);
+      swarmHeight = swarm.offsetHeight || 1;
     }
   }
 
@@ -117,6 +129,20 @@
         writeOpacity(weaveAura, (0.22 + bloom * 0.78).toFixed(3));
       }
     }
+
+    if (swarm) {
+      var lit = false;
+      if (spotlightOn && swarm._near !== false) {
+        var sweet = y + vh * 0.4;
+        var overlaps = swarmTop <= sweet && swarmTop + swarmHeight >= sweet;
+        var edge = Math.min(Math.abs(swarmTop - sweet), Math.abs(swarmTop + swarmHeight - sweet));
+        lit = overlaps || edge < vh * 0.2;
+      }
+      if (swarmLit !== lit) {
+        swarmLit = lit;
+        swarm.classList.toggle("is-lit", lit);
+      }
+    }
   }
 
   function paintScroll() {
@@ -156,6 +182,12 @@
 
   if (!reduceMotion) {
     document.documentElement.classList.add("js-motion");
+    if (swarm && !swarm.querySelector(".sheen")) {
+      var sheen = document.createElement("span");
+      sheen.className = "sheen";
+      sheen.setAttribute("aria-hidden", "true");
+      swarm.appendChild(sheen);
+    }
 
     if ("IntersectionObserver" in window) {
       var liveObserver = new IntersectionObserver(function (entries) {
@@ -167,6 +199,7 @@
       }, { rootMargin: "20% 0px 20% 0px", threshold: 0 });
       if (hero) liveObserver.observe(hero);
       if (weave) liveObserver.observe(weave);
+      if (swarm) liveObserver.observe(swarm);
 
       var groups = [
         "#games > .wrap > .kicker, #games > .wrap > h2, #games > .wrap > .lede",
@@ -191,7 +224,7 @@
           var el = entry.target;
           var delay = index * 90;
           var settle = 760;
-          if (el.classList.contains("motion-swarm")) settle = 520;
+          if (el.classList.contains("reveal-card")) settle = 980;
           else if (el.classList.contains("motion-pillar")) settle = 920;
           else if (el.classList.contains("motion-idea")) settle = 1200;
           else if (el.classList.contains("press-rule")) settle = 1100;
@@ -207,7 +240,7 @@
       groups.forEach(function (selector) {
         Array.prototype.forEach.call(document.querySelectorAll(selector), function (el) {
           el.classList.add("reveal");
-          if (el.id === "swarm-genesis") el.classList.add("motion-swarm");
+          if (el.id === "swarm-genesis") el.classList.add("reveal-card");
           else if (el.classList.contains("pillar")) el.classList.add("motion-pillar");
           else if (el.classList.contains("idea-band")) el.classList.add("motion-idea");
           else if (el.classList.contains("card") || el.classList.contains("launch")) el.classList.add("motion-press");
@@ -226,6 +259,17 @@
         clearMotion();
       } else {
         document.documentElement.classList.add("js-motion");
+      }
+      queueMeasure();
+    });
+  }
+
+  if (spotlightMedia.addEventListener) {
+    spotlightMedia.addEventListener("change", function () {
+      spotlightOn = spotlightMedia.matches;
+      if (!spotlightOn && swarm) {
+        swarm.classList.remove("is-lit");
+        swarmLit = false;
       }
       queueMeasure();
     });
