@@ -11,9 +11,9 @@
   var emblem = document.querySelector(".emblem-motion");
   var tagline = document.querySelector(".tagline-motion");
   var weave = document.querySelector("#cosmic-weave");
-  var weaveFloat = document.querySelector("#cosmic-weave .device-float");
-  var weaveBacklight = document.querySelector("#cosmic-weave .weave-backlight");
+  var floatNodes = document.querySelectorAll(".device-float");
   var swarm = document.querySelector("#swarm-genesis");
+  var floats = [];
   var rims = [];
   var gameLights = [];
   var spotlightOn = spotlightMedia.matches;
@@ -23,8 +23,6 @@
   var viewH = window.innerHeight || 1;
   var heroTop = 0;
   var heroHeight = 1;
-  var weaveTop = 0;
-  var weaveHeight = 1;
 
   function clamp(n, min, max) {
     return Math.min(max, Math.max(min, n));
@@ -59,9 +57,7 @@
     writeOpacity(emblem, "");
     writeTransform(tagline, "");
     writeOpacity(tagline, "");
-    writeTransform(weaveFloat, "");
-    writeTransform(weaveBacklight, "");
-    writeOpacity(weaveBacklight, "");
+    floats.forEach(function (item) { writeTransform(item.el, ""); });
     rims.forEach(function (rim) {
       writeTransform(rim.spin, "");
       writeOpacity(rim.shell, "");
@@ -78,10 +74,9 @@
       heroTop = docTop(hero);
       heroHeight = hero.offsetHeight || 1;
     }
-    if (weave) {
-      weaveTop = docTop(weave);
-      weaveHeight = weave.offsetHeight || 1;
-    }
+    floats = Array.prototype.map.call(floatNodes, function (el) {
+      return { el: el, top: docTop(el), height: el.offsetHeight || 1 };
+    });
     rims = Array.prototype.map.call(document.querySelectorAll(".card-rim"), function (shell) {
       var host = shell.parentElement;
       return {
@@ -138,19 +133,12 @@
       }
     }
 
-    if (weave && weaveFloat && weave._near !== false) {
-      var center = weaveTop + weaveHeight * 0.42;
-      var dist = center - (y + vh * 0.4);
-      var tilt = clamp(dist / vh * 16, 0, 7);
-      var bloom = clamp(1 - Math.abs(dist) / (vh * 0.72), 0, 1);
-      writeTransform(
-        weaveFloat,
-        "rotateX(" + tilt.toFixed(2) + "deg) scale(" + (0.972 + bloom * 0.028).toFixed(4) + ")"
-      );
-      if (weaveBacklight) {
-        writeTransform(weaveBacklight, "translateX(-50%) scale(" + (0.98 + bloom * 0.035).toFixed(4) + ")");
-        writeOpacity(weaveBacklight, (0.62 + bloom * 0.38).toFixed(3));
-      }
+    var viewMid = y + vh * 0.5;
+    for (var i = 0; i < floats.length; i++) {
+      var item = floats[i];
+      var rel = (item.top + item.height * 0.5 - viewMid) / vh;
+      var shift = clamp(rel * 22, -14, 14);
+      writeTransform(item.el, "translate3d(0," + shift.toFixed(2) + "px,0)");
     }
 
     var sweetLine = y + vh * 0.4;
