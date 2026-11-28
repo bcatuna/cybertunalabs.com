@@ -430,6 +430,13 @@ h1 {
   gap: 0.55rem;
   margin-top: 0.9rem;
 }
+#swarm-genesis .thumbs {
+  flex-wrap: wrap;
+  max-width: min(300px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  row-gap: 0.45rem;
+}
 .thumb {
   width: 58px;
   padding: 0;
